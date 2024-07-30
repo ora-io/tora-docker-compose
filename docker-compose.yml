@@ -1,0 +1,30 @@
+# ora node docker-compose
+version: '3'
+services:
+  confirm:
+    image: liriu/ora-confirm:latest
+    container_name: ora-confirm
+    command: ["sepolia"] # sepolia | mainnet
+    depends_on:
+      - redis
+      - openlm
+    env_file:
+      - .env
+    networks:
+      - private_network
+  redis:
+    image: redis:latest
+    container_name: ora-redis
+    restart: always
+    networks:
+      - private_network
+  openlm:
+    image: liriu/open-lm-server:v1.0
+    container_name: ora-openlm
+    restart: always
+    networks:
+      - private_network
+
+networks:
+  private_network:
+    driver: bridge
