@@ -2,14 +2,19 @@
 version: '3'
 services:
   confirm:
-    image: liriu/ora-confirm:latest
+    image: oraprotocol/tora:confirm
     container_name: ora-confirm
-    command: ["sepolia"] # sepolia | mainnet
     depends_on:
       - redis
       - openlm
+    command: 
+      - "--confirm"
     env_file:
       - .env
+    environment:
+      REDIS_HOST: 'redis'
+      REDIS_PORT: 6379
+      OPENLM_HOST: 'http://openlm:5000/olm'
     networks:
       - private_network
   redis:
