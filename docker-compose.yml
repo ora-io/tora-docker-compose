@@ -14,7 +14,7 @@ services:
     environment:
       REDIS_HOST: 'redis'
       REDIS_PORT: 6379
-      OPENLM_HOST: 'http://openlm:5000/'
+      CONFIRM_OPENLM_SERVER: 'http://openlm:5000/'
     networks:
       - private_network
   redis:
