@@ -15,6 +15,8 @@ services:
       REDIS_HOST: 'redis'
       REDIS_PORT: 6379
       CONFIRM_MODEL_SERVER_13: 'http://openlm:5000/'
+    ports:
+      - 5001:5001
     networks:
       - private_network
   redis:
