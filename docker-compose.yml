@@ -29,6 +29,23 @@ services:
     restart: always
     networks:
       - private_network
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    command: serve
+    volumes:
+      - "./data:/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - "TZ=Asia/Shanghai"
+      - "LOG_LEVEL=info"
+      - "LOG_JSON=false"
+      - "DIUN_WATCH_WORKERS=5"
+      - "DIUN_WATCH_JITTER=30"
+      - "DIUN_WATCH_SCHEDULE=0 0 * * *"
+      - "DIUN_PROVIDERS_DOCKER=true"
+      - "DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true"
+    restart: always
 
 networks:
   private_network:
