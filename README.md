@@ -7,17 +7,24 @@ You can quickly start a TORA validator through this repo and participate in the 
 To learn about how to use and build on ORA read the [docs](https://docs.ora.io/doc).
 
 # Usage
-### 0. Minimal requirements
+### 0. Requirements
 
 TORA validator has no specific requirements for the operating system. It can run on macOS, Linux, or Windows. 
 
 Please confirm that your computer has Docker installed and ensure there is a stable network connection. The installation, operation, and upgrade of TORA validator will be completed based on Docker.
+
+#### Mininal requirements
 
 To run a TORA validator your computer must have:
 - Any Operating System but Docker installed.
 - 1-core CPU and 8 GB RAM. This configuration is sufficient to run an openLM model server.
 
 Please ensure that there is sufficient balance in the wallet used for `confirm`, which can be used to pay for gas of [transaction](https://sepolia.etherscan.io/tx/0x4f18a1ae40fceeed1ac771097e0cca90f843bb2fe77bee53c3dbd71d5e05a012).
+
+#### Optimal requirements
+
+You can optimize the inference process by using GPU. Your GPU needs at least 8GB of memory.
+We conducted tests on Nvidia graphics cards, and the average inference time will be reduced from 15 minutes to around 2 seconds.
 
 ### 1. Setup
 ```shell
@@ -65,35 +72,25 @@ Finally, it has been successfully confirmed on chain.
 Great job! This confirm transaction means you have successfully participated in the ORA protocol. Everything is running smoothly.
 
 # Resources
-### Error
+### Common questions
 
-#### 1. not support model
-
-```bash
-not support model 11
-```
-
-Currently, there are multiple models running in ORA. This error indicates that the modelId of the detected OAO event is not in your support_models.
-
-Since TORA validator currently only supports openLM#13, this error message can be temporarily ignored.
-
-#### 2. invoke confirm function error
+#### 1. invoke confirm function error
 
 This error indicates that model inference off-chain is functioning, but the on-chain contract call fails. This may be caused by various reasons and debugging needs to be done in conjunction with specific error information.
 
 If you encounter this error, please record the failed `txHash` and contact community developers.
 
-#### 3. not match modelHash and programHash
+#### 2. not match modelHash and programHash
 
 This error indicates that the on-chain model has been upgraded, and the old version of the model is deprecated.
 
 Please use the `docker images rm` command and `docker container rm` command to delete the existing TORA validator node, download the latest version of TORA validator again, and start the node.
 
-#### 4. too long inference time
+#### 3. too long inference time
 
 When you encounter a long inference time for an AI model (possibly up to 15 minutes), it is because the computer does not have GPU available. TORA validator can only use CPU for slow AI inference.
 
-To improve efficiency, we cache the inference results. The same prompt will no longer be processed repeatedly but will directly confirm the on-chain results.
+To improve efficiency, we cache the inference results. The same prompt will no longer be processed repeatedly but will directly get the result.
 
 ### Further Reading
 
