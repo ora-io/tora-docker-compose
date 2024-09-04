@@ -18,7 +18,7 @@ services:
     networks:
       - private_network
   redis:
-    image: redis:latest
+    image: oraprotocol/redis:latest
     container_name: ora-redis
     restart: always
     networks:
