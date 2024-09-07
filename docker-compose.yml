@@ -3,7 +3,7 @@ version: '3'
 services:
   confirm:
     image: oraprotocol/tora:confirm
-    container_name: ora-confirm
+    container_name: ora-tora
     depends_on:
       - redis
       - openlm
