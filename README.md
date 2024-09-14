@@ -1,21 +1,21 @@
 <img alt="Banner" src="docs/images/Rainbow-Radiating-V1_00167-b.png"/>
 
-This repo contains the docker compose file and .env configuration file for starting the TORA validator.
+This repo contains the docker compose file and .env configuration file for starting the TORA.
 
-You can quickly start a TORA validator through this repo and participate in the ORA protocol.
+You can quickly start a TORA node through this repo and participate in the ORA protocol.
 
 To learn about how to use and build on ORA read the [docs](https://docs.ora.io/doc).
 
 # Usage
 ### 0. Requirements
 
-TORA validator has no specific requirements for the operating system. It can run on macOS, Linux, or Windows. 
+TORA has no specific requirements for the operating system. It can run on macOS, Linux, or Windows. 
 
-Please confirm that your computer has Docker installed and ensure there is a stable network connection. The installation, operation, and upgrade of TORA validator will be completed based on Docker.
+Please confirm that your computer has Docker installed and ensure there is a stable network connection. The installation, operation, and upgrade of TORA will be completed based on Docker.
 
 #### Mininal requirements
 
-To run a TORA validator your computer must have:
+To run a TORA node your computer must have:
 - Any Operating System but Docker installed.
 - 1-core CPU and 8 GB RAM. This configuration is sufficient to run an openLM model server.
 
@@ -28,7 +28,7 @@ We conducted tests on Nvidia graphics cards, and the average inference time will
 
 ### 1. Setup
 ```shell
-git clone https://github.com/ora-io/tora-validator.git && cd tora-validator
+git clone https://github.com/ora-io/tora.git && cd tora
 mv .env.example .env && vim .env # modify environment variables
 ```
 `PRIV_KEY` `MAINNET_WSS` `MAINNET_HTTP` `SEPOLIA_WSS` `SEPOLIA_HTTP` variables are required.
@@ -54,18 +54,18 @@ Let's initiate an [openlm OAO request](https://www.ora.io/app/opml/openlm).
 
 <img alt="Banner" src="docs/images/openlm.png"/>
 
-After the request is sent out, the TORA validator will display the following log:
+After the request is sent out, the TORA node will display the following log:
 ```
 [confirm] receive event in tx: 0xcdc6d357333632d123fa1f6a3ad7fa6a082b41f8d07f26e57ebb524002f24b3d
 ```
 
-This indicates that the TORA validator has detected a new OAO Request.
+This indicates that the TORA node has detected a new OAO Request.
 
-After a short wait, the TORA validator has new logs as follows:
+After a short wait, the TORA node has new logs as follows:
 ```
 [confirm] [+] confirm at txhash: 0xfc44938269302b83022360bb7e9929af65d62e8f312fcbb676cafe8811ece2b9
 ```
-This indicates that the TORA validator conducted AI model inference locally and compared the results with on-chain AI output for confirmation.
+This indicates that the TORA node conducted AI model inference locally and compared the results with on-chain AI output for confirmation.
 
 Finally, it has been successfully confirmed on chain.
 
@@ -84,11 +84,11 @@ If you encounter this error, please record the failed `txHash` and contact commu
 
 This error indicates that the on-chain model has been upgraded, and the old version of the model is deprecated.
 
-Please use the `docker images rm` command and `docker container rm` command to delete the existing TORA validator node, download the latest version of TORA validator again, and start the node.
+Please use the `docker images rm` command and `docker container rm` command to delete the existing TORA node, download the latest version of TORA again, and start the node.
 
 #### 3. too long inference time
 
-When you encounter a long inference time for an AI model (possibly up to 15 minutes), it is because the computer does not have GPU available. TORA validator can only use CPU for slow AI inference.
+When you encounter a long inference time for an AI model (possibly up to 15 minutes), it is because the computer does not have GPU available. TORA can only use CPU for slow AI inference.
 
 To improve efficiency, we cache the inference results. The same prompt will no longer be processed repeatedly but will directly get the result.
 
