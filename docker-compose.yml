@@ -4,6 +4,13 @@ services:
   confirm:
     image: oraprotocol/tora:confirm
     container_name: ora-tora
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     depends_on:
       - redis
       - openlm
@@ -29,6 +36,13 @@ services:
     restart: always
     networks:
       - private_network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
   diun:
     image: crazymax/diun:latest
     container_name: diun
