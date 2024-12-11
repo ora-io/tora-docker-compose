@@ -1,0 +1,63 @@
+# ora node docker-compose
+version: '3'
+services:
+  confirm:
+    image: oraprotocol/tora:confirm
+    container_name: ora-tora
+    depends_on:
+      - redis
+    command: 
+      - "--confirm"
+    env_file:
+      - .env
+    environment:
+      REDIS_HOST: 'redis'
+      REDIS_PORT: 6379
+      CONFIRM_MODEL_SERVER_13: 'http://openlm:5000/'
+    networks:
+      - private_network
+  redis:
+    image: oraprotocol/redis:latest
+    container_name: ora-redis
+    restart: always
+    networks:
+      - private_network
+  openlm:
+    image: oraprotocol/openlm:latest
+    container_name: ora-openlm
+    restart: always
+    networks:
+      - private_network
+  openlm-chat:
+    image: oraprotocol/openlm-chat:latest
+    container_name: ora-openlm-chat
+    restart: always
+    networks:
+      - private_network
+  openlm-score:
+    image: oraprotocol/openlm-score:latest
+    container_name: ora-openlm-score
+    restart: always
+    networks:
+      - private_network
+  diun:
+    image: crazymax/diun:latest
+    container_name: diun
+    command: serve
+    volumes:
+      - "./data:/data"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - "TZ=Asia/Shanghai"
+      - "LOG_LEVEL=info"
+      - "LOG_JSON=false"
+      - "DIUN_WATCH_WORKERS=5"
+      - "DIUN_WATCH_JITTER=30"
+      - "DIUN_WATCH_SCHEDULE=0 0 * * *"
+      - "DIUN_PROVIDERS_DOCKER=true"
+      - "DIUN_PROVIDERS_DOCKER_WATCHBYDEFAULT=true"
+    restart: always
+
+networks:
+  private_network:
+    driver: bridge
